@@ -23,35 +23,26 @@ const path = require('path');
 // Schema version & migrations
 // ---------------------------------------------------------------------------
 
-const CURRENT_VERSION = '1.0';
+const CURRENT_VERSION = '1.1';
 
 /**
  * Migration registry. Each key is the version to migrate FROM.
  * The function receives a vision object and returns the transformed object
  * at the next version. Migrations are applied in sequence: 1.0 → 1.1 → 1.2.
- *
- * Example (uncomment and adapt when the first breaking change ships):
- *
- * const migrations = {
- *   '1.0': (vision) => {
- *     // 1.0 → 1.1: describe what changed
- *     //
- *     // e.g. remove redundant techStack.appType, add optional field
- *     // if (vision.techStack.appType) {
- *     //   if (!vision.product.platform) {
- *     //     vision.product.platform = vision.techStack.appType;
- *     //   }
- *     //   delete vision.techStack.appType;
- *     // }
- *     // if (!vision.product.newField) {
- *     //   vision.product.newField = '';
- *     // }
- *     vision.meta.version = '1.1';
- *     return vision;
- *   }
- * };
  */
-const migrations = {};
+const migrations = {
+  '1.0': (vision) => {
+    // 1.0 → 1.1: drop feeling.visualMood and feeling.antiPatterns. Visual
+    // identity (including visual anti-patterns) is now captured in
+    // docs/design.md via /plaid design from image references.
+    if (vision.feeling) {
+      delete vision.feeling.visualMood;
+      delete vision.feeling.antiPatterns;
+    }
+    vision.meta.version = '1.1';
+    return vision;
+  }
+};
 
 /**
  * Apply all migrations needed to bring a vision object to CURRENT_VERSION.
@@ -70,6 +61,12 @@ function migrate(vision) {
     }
     const fromVersion = vision.meta.version;
     vision = fn(JSON.parse(JSON.stringify(vision))); // deep clone before mutating
+    if (vision.meta.version === fromVersion) {
+      return {
+        success: false,
+        error: `Migration from ${fromVersion} did not advance meta.version (still "${fromVersion}", expected to move toward "${CURRENT_VERSION}").`
+      };
+    }
     applied.push(`${fromVersion} → ${vision.meta.version}`);
   }
 
@@ -189,9 +186,7 @@ function validate(vision) {
   // feeling validation
   if (vision.feeling) {
     checkString(vision.feeling, 'brandPersonality', 'feeling', errors);
-    checkString(vision.feeling, 'visualMood', 'feeling', errors);
     checkString(vision.feeling, 'toneOfVoice', 'feeling', errors);
-    checkString(vision.feeling, 'antiPatterns', 'feeling', errors);
   }
 
   // techStack validation
