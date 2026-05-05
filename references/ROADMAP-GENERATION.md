@@ -292,10 +292,10 @@ When generating `docs/product-roadmap.md`, include a brief note about the Phase 
 ### Prompt Templates
 
 **Starting a new phase:**
-> "Read docs/product-roadmap.md and find the current phase. Read only the Reference sections listed for that phase from docs/prd.md and docs/product-vision.md. Start working on the first unchecked task. After completing each task, update the checkbox to [x] in the roadmap file. Continue through the phase."
+> "Read docs/product-roadmap.md and find the current phase. Read only the Reference sections listed for that phase from docs/prd.md, docs/product-vision.md, and docs/design.md. Start working on the first unchecked task. After completing each task, update the checkbox to [x] in the roadmap file. Continue through the phase."
 
 **Resuming after a break:**
-> "Read docs/product-roadmap.md. Find where we left off (first unchecked task). Read only the Reference sections listed for the current phase from docs/prd.md and docs/product-vision.md. Continue from the first unchecked task."
+> "Read docs/product-roadmap.md. Find where we left off (first unchecked task). Read only the Reference sections listed for the current phase from docs/prd.md, docs/product-vision.md, and docs/design.md. Continue from the first unchecked task."
 
 **After completing a phase:**
 > "Phase [N] is complete. Create a branch called phase-{N}/{slug}, commit all work, push, and open a PR targeting main. Title it 'Phase {N}: {Title}' and include the phase goal and completed task count in the body."

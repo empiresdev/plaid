@@ -61,6 +61,12 @@ function migrate(vision) {
     }
     const fromVersion = vision.meta.version;
     vision = fn(JSON.parse(JSON.stringify(vision))); // deep clone before mutating
+    if (vision.meta.version === fromVersion) {
+      return {
+        success: false,
+        error: `Migration from ${fromVersion} did not advance meta.version (still "${fromVersion}", expected to move toward "${CURRENT_VERSION}").`
+      };
+    }
     applied.push(`${fromVersion} → ${vision.meta.version}`);
   }
 
