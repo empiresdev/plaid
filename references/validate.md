@@ -146,28 +146,61 @@ No softening. No "but I believe in you." A weak verdict is useful information, n
 
 -----
 
-## Step 9: Apply Sharpened Edits to `docs/product-idea.md`
+## Step 9: Direction Check
 
-Based on the validation, identify edits that sharpen the idea: a tighter target user, a problem statement in the user's own language, a smaller MVP, an updated risky-assumptions list, or a reframed proposed solution.
+Before touching `docs/product-idea.md`, surface the directional choices the validation revealed and let the founder decide. The findings often imply more than one plausible path — a narrower target user, a reframed problem statement, a different MVP shape, an embraced pivot — and the founder, not the report, drives the call.
 
-Apply these edits automatically to `docs/product-idea.md`. Do **not** ask permission per-edit — the founder asked for validation and edits are part of the deliverable.
+Ask only the questions the findings actually raise. If Step 3 didn't shift the early adopter, don't ask about the target user. If Step 6 didn't suggest a different MVP shape, don't ask about it.
+
+Possible questions, by area:
+
+- **Target user** — If Step 3 surfaced a tighter or different early adopter:
+  > "Step 3 pointed at [specific persona] as the real early adopter. Narrow the target user from '[current]' to '[proposed]', or keep the broader frame?"
+
+- **Problem framing** — If Step 3 surfaced different language for the pain:
+  > "I want to swap the problem statement to the user's actual words: '[proposed phrasing]'. Use that, or keep the current framing?"
+
+- **MVP shape** — If Step 6 recommended a different MVP shape (e.g. concierge vs. productized):
+  > "Step 6 suggests a [manual/concierge] test over a [productized/SaaS] one. Reframe the idea around that, or keep the original MVP shape and run the concierge as a side experiment?"
+
+- **Pivot direction** — When the verdict is **Pivot required**:
+  > "The verdict points at '[pivot direction]'. Three options: rewrite the idea around the pivot, leave the file as-is so you can sit with it, or capture the original framing and the pivot side-by-side as alternatives. Which?"
+
+- **Risky assumptions** — Always confirm before replacing:
+  > "Validation surfaced these three risky assumptions: [list]. Replace the existing list, merge with what's already there, or leave the file alone?"
+
+Behavior rules:
+
+- Only ask the questions the findings raise. A clean Strong verdict on an already-tight idea may have just one question (the risky-assumptions update) — or none.
+- One question at a time, each with a recommended default. The founder can accept the default or override in a sentence.
+- Mechanical wording fixes that just align the file with validation language are applied silently in Step 10 — don't ask about each one.
+- If the verdict is **Weak**, skip this step. No edits get applied in Step 10, so there is nothing to choose between.
+- If `docs/product-idea.md` does not exist (standalone Validate run), still ask the directional questions — they shape the file you're about to write fresh.
+
+When the founder has answered, summarize the chosen direction in one or two sentences and move to Step 10.
+
+-----
+
+## Step 10: Apply Sharpened Edits to `docs/product-idea.md`
+
+Apply the edits the founder agreed to in Step 9. The choices are already made — do not re-ask. Mechanical wording fixes that align the file with the validation language can be applied silently alongside the chosen edits.
 
 **Always preserve** the `## Candidates considered` section verbatim. It is a record of the reasoning behind the chosen idea and must not be overwritten.
 
 After applying, tell the founder which fields were updated, in plain language. Example:
 
 > Updated `docs/product-idea.md`:
-> - **Target user** — narrowed from "small business owners" to "freelance bookkeepers managing 10–30 SMB clients" (Step 3 finding)
-> - **Smallest testable version** — reframed as a manual concierge service rather than a SaaS product (Step 6 finding)
+> - **Target user** — narrowed from "small business owners" to "freelance bookkeepers managing 10–30 SMB clients" (Step 3 finding, confirmed in Step 9)
+> - **Smallest testable version** — reframed as a manual concierge service rather than a SaaS product (Step 6 finding, confirmed in Step 9)
 > - **Risky assumptions** — replaced with the three from the validation report
 >
 > The `Candidates considered` section was preserved unchanged.
 
-If `docs/product-idea.md` does not exist (standalone Validate run) and the verdict is **Strong** or **Pivot required**, offer to write a fresh `docs/product-idea.md` from the validated answers so Plan can pick it up. Use the same structure as the Idea capability's Step 6, but mark `## Candidates considered` as "Not applicable — direct validation run." On a **Weak** verdict, do not write `docs/product-idea.md` — recommend more discovery first.
+If `docs/product-idea.md` does not exist (standalone Validate run) and the verdict is **Strong** or **Pivot required**, write a fresh `docs/product-idea.md` from the validated answers and the direction the founder chose in Step 9 so Plan can pick it up. Use the same structure as the Idea capability's Step 6, but mark `## Candidates considered` as "Not applicable — direct validation run." On a **Weak** verdict, do not write `docs/product-idea.md` — recommend more discovery first.
 
 -----
 
-## Step 10: Write `docs/validation-report.md`
+## Step 11: Write `docs/validation-report.md`
 
 Write the full report to `docs/validation-report.md`. Use this structure:
 
@@ -233,7 +266,7 @@ Verify the write succeeded before confirming. If the write fails, surface a clea
 
 -----
 
-## Step 11: Handoff
+## Step 12: Handoff
 
 After writing the report and applying edits, route based on verdict:
 
@@ -255,5 +288,5 @@ If the founder wants to continue to Plan immediately and the verdict is Strong o
 If `docs/validation-report.md` already exists and the founder runs Validate again:
 - Read the previous report first.
 - Ask what changed since last time (new discovery, a pivot, a competitor found, a price test).
-- Re-run all 11 steps with the new context. Don't try to "patch" the old report — overwrite it cleanly.
+- Re-run all 12 steps with the new context. Don't try to "patch" the old report — overwrite it cleanly.
 - The previous report is replaced; if the founder wants the old version preserved, they should commit it to git before re-running.

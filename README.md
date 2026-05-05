@@ -17,7 +17,7 @@ PLAID is a single skill with six capabilities, each handling a distinct phase of
 | Capability | Trigger | What It Does | Output |
 |---|---|---|---|
 | **Idea** | "plaid idea", "help me find an idea", "what should I build" | Guided discovery of a product idea from business processes or personal expertise | `docs/product-idea.md` |
-| **Validate** | "plaid validate", "validate my idea", "pressure-test", "is this idea good" | Brutally pressure-tests the chosen idea — fatal flaws, problem reality, competition, first 10 customers, 2-week MVP test, strong/weak/pivot verdict. Sharpens `docs/product-idea.md` automatically. | `docs/validation-report.md`, sharpened `docs/product-idea.md` |
+| **Validate** | "plaid validate", "validate my idea", "pressure-test", "is this idea good" | Brutally pressure-tests the chosen idea — fatal flaws, problem reality, competition, first 10 customers, 2-week MVP test, strong/weak/pivot verdict. Asks targeted follow-up questions to confirm direction, then sharpens `docs/product-idea.md`. | `docs/validation-report.md`, sharpened `docs/product-idea.md` |
 | **Plan** | "PLAID", "plan a product", "define my vision", "generate a PRD" | Vision intake conversation + document generation | `vision.json`, `product-vision.md`, `prd.md`, `product-roadmap.md` |
 | **Design** | "plaid design", "design from image", "create design.md", "image to design system" | Translates image references (screenshots, mockups, Figma URLs) into a [Google design.md](https://github.com/google-labs-code/design.md) token spec + prose rationale | `docs/design.md` |
 | **Launch** | "plaid launch", "go-to-market", "launch plan", "GTM strategy" | Go-to-market plan generation | `gtm.md` |
@@ -51,8 +51,9 @@ Pressure-test the chosen idea before investing in Plan, Build, or Launch. Valida
 6. **Plan the first 10 customers** — Manual outreach, no ads, no automation. Where they are, how to reach them, what success looks like.
 7. **Define a 2-week MVP test** — The smallest thing that tests the core assumption with real users.
 8. **Score and verdict** — A 6-axis scorecard (pain intensity, buyer clarity, urgency, differentiation, speed to validate, founder advantage) and a direct strong / weak / pivot verdict.
-9. **Sharpen the idea** — Validate applies sharpened edits automatically to `docs/product-idea.md` (target user, problem statement, MVP shape, risky assumptions) and tells you what changed. The `Candidates considered` section is preserved.
-10. **Output** — `docs/validation-report.md` (the full diagnosis, preserved for the record) and updated `docs/product-idea.md`.
+9. **Direction check** — Before touching `docs/product-idea.md`, Validate surfaces the directional calls the findings imply (tighter target user, reframed problem statement, different MVP shape, pivot vs. stay) and asks you to choose. Only the choices you confirm get applied.
+10. **Sharpen the idea** — Validate applies the agreed edits to `docs/product-idea.md` (target user, problem statement, MVP shape, risky assumptions) and tells you what changed. The `Candidates considered` section is preserved.
+11. **Output** — `docs/validation-report.md` (the full diagnosis, preserved for the record) and updated `docs/product-idea.md`.
 
 The validation scorecard sits **alongside** the Idea capability's candidate scorecard. Idea ranks 3–5 candidate directions; Validate stress-tests the chosen one. Both are kept.
 
@@ -164,7 +165,7 @@ PLAID automatically routes to the right capability based on your request. No dep
 
 **Optional first session — Idea Discovery.** If you don't yet have a concrete product concept, start with `plaid idea`. PLAID walks you through a stepped conversation that mines an idea from your business or expertise, ranks candidates on a scorecard, and writes `docs/product-idea.md`. This becomes input to Validate and Plan.
 
-**Optional second session — Validation.** Once you have an idea, run `plaid validate` to pressure-test it. PLAID surfaces fatal flaws, tests whether the problem is real, maps competition (including current behavior), plans a 2-week MVP test, and returns a strong/weak/pivot verdict. It writes `docs/validation-report.md` and sharpens `docs/product-idea.md` automatically based on what it found.
+**Optional second session — Validation.** Once you have an idea, run `plaid validate` to pressure-test it. PLAID surfaces fatal flaws, tests whether the problem is real, maps competition (including current behavior), plans a 2-week MVP test, and returns a strong/weak/pivot verdict. Before updating `docs/product-idea.md`, it asks you targeted follow-up questions to confirm the direction the findings point at — narrower target user, reframed problem, different MVP shape, or a pivot — and only applies the choices you confirm. It writes `docs/validation-report.md` and sharpens `docs/product-idea.md` based on what you decided.
 
 **First (or third) session — Vision Intake.** PLAID opens with "What do you want to build?" and adapts based on how concrete your idea is. If you have a clear concept (or a `docs/product-idea.md`), it jumps into structured questions. If you're still exploring, it helps you narrow down before moving forward. At the end, you'll have a validated `vision.json` in your project root.
 
