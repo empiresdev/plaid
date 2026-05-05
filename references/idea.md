@@ -1,19 +1,19 @@
 # Idea — Product Idea Discovery
 
-This capability helps a founder identify a great product idea by mining what they already know or already do. It runs before Plan: the output, `product-idea.md`, feeds the Plan intake.
+This capability helps a founder identify a great product idea by mining what they already know or already do. It runs before Validate and Plan: the output, `docs/product-idea.md`, feeds both downstream capabilities.
 
 ## Modes
 
-**Starting fresh** (no `product-idea.md` exists):
+**Starting fresh** (no `docs/product-idea.md` exists):
 Run the full idea discovery conversation from Step 0.
 
-**product-idea.md exists**:
+**`docs/product-idea.md` exists**:
 Read it and ask what they want to do:
 - Refine the existing idea (jump to Step 5)
 - Pick a different candidate from the scorecard (jump to Step 4 — see scorecard check below)
 - Start over (confirm, then restart from Step 0)
 
-Before jumping to Step 4, validate that the Step 3 scorecard is present and well-formed: read `product-idea.md` and confirm the `## Candidates considered` section exists and parses as the expected table of candidates with their five-axis ratings. If the section is missing, empty, or corrupted, do not jump to Step 4. Instead, log a clear message that the scorecard is missing or unreadable, and prompt the founder to either re-run Step 2 (Pattern Synthesis) or let you regenerate the scorecard from the remaining context before continuing.
+Before jumping to Step 4, validate that the Step 3 scorecard is present and well-formed: read `docs/product-idea.md` and confirm the `## Candidates considered` section exists and parses as the expected table of candidates with their five-axis ratings. If the section is missing, empty, or corrupted, do not jump to Step 4. Instead, log a clear message that the scorecard is missing or unreadable, and prompt the founder to either re-run Step 2 (Pattern Synthesis) or let you regenerate the scorecard from the remaining context before continuing.
 
 **Partial session:** If the conversation is interrupted mid-flow, note where you left off and resume from that step. Don't restart.
 
@@ -143,9 +143,9 @@ If the founder's answers don't hold up to gentle pressure, say so and sharpen th
 
 -----
 
-## Step 6: Write `product-idea.md`
+## Step 6: Write `docs/product-idea.md`
 
-Write the file to the project root as `product-idea.md`. Use this structure:
+Write the file to `docs/product-idea.md`. Create the `docs/` directory if it doesn't already exist. Use this structure:
 
 ```markdown
 # Product Idea — [Working name, if any]
@@ -175,14 +175,14 @@ Write the file to the project root as `product-idea.md`. Use this structure:
 [The top 3 assumptions that must be true. These are what the founder should validate next.]
 
 ## Next step
-Run `/plaid` to start the Plan intake. The product-idea.md above will pre-fill much of your product vision.
+Run `/plaid validate` to pressure-test the idea before planning, or `/plaid` to jump straight into the Plan intake. The product-idea.md above will pre-fill much of your product vision.
 ```
 
 Write the file, then verify the write succeeded before confirming. If the write fails, catch the error and surface a clear, user-friendly message based on the cause — for example:
 
-- **Permission denied** → "I couldn't save `product-idea.md` because the project root isn't writable. Check folder permissions and try again."
+- **Permission denied** → "I couldn't save `docs/product-idea.md` because the directory isn't writable. Check folder permissions and try again."
 - **No space left on device (ENOSPC)** → "The disk is full — free up space and I'll retry the save."
-- **Existing file conflict** (unexpected contents or read-only) → "A `product-idea.md` already exists and can't be overwritten. Want me to save under a different name or overwrite it?"
+- **Existing file conflict** (unexpected contents or read-only) → "A `docs/product-idea.md` already exists and can't be overwritten. Want me to save under a different name or overwrite it?"
 - **Any other error** → Report the error message verbatim and ask how to proceed.
 
 Only confirm "saved" to the founder after the write is verified successful. On failure, do not send the confirmation message and do not advance to Step 7 until the file is written.
@@ -191,11 +191,13 @@ Only confirm "saved" to the founder after the write is verified successful. On f
 
 ## Step 7: Handoff
 
-After writing `product-idea.md`, say:
+After writing `docs/product-idea.md`, say:
 
-> "Your idea is captured. Ready to turn this into a full product vision? Run `/plaid` and I'll walk you through the Plan intake — most of what you answered here will carry forward, so it'll go fast."
+> "Your idea is captured. Two ways to go from here:
+> - **Pressure-test it first** — run `/plaid validate` to surface fatal flaws, test whether the problem is real, and lock in a 2-week MVP test before you invest in planning. Recommended.
+> - **Jump to planning** — run `/plaid` to walk through the Plan intake. Most of what you answered here will carry forward."
 
-If the founder wants to continue immediately, load `references/plan.md` and start the vision intake. Use `product-idea.md` as pre-filled context — don't re-ask questions it already answers. Specifically:
+If the founder wants to continue immediately to Validate, load `references/validate.md` and run the validation. If they want to skip Validate and go straight to Plan, load `references/plan.md` and start the vision intake. Use `docs/product-idea.md` as pre-filled context — don't re-ask questions it already answers. Specifically:
 
 - Section 1 (About You) → covered by Background + Why you
 - Section 2 (Your Purpose) → covered by The problem + Target user + Why you
@@ -207,7 +209,7 @@ Acknowledge what's already captured and move to the questions that are genuinely
 
 ## Editing the Idea
 
-If the founder wants to change something after `product-idea.md` exists:
+If the founder wants to change something after `docs/product-idea.md` exists:
 
 - **Small edit** (wording, a single field) → update the file in place
 - **Change the chosen candidate** → re-run Step 4 onward from the existing scorecard
