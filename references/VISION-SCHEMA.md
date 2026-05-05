@@ -9,7 +9,7 @@ interface Vision {
   meta: {
     createdAt: string;          // ISO 8601 timestamp
     updatedAt: string;          // ISO 8601 timestamp
-    version: "1.0";             // Schema version
+    version: "1.1";             // Schema version
     plaidVersion: "1.0";        // PLAID skill version
   };
 
@@ -53,10 +53,11 @@ interface Vision {
 
   feeling: {
     brandPersonality: string;   // Brand personality archetype
-    visualMood: string;         // Visual direction
     toneOfVoice: string;        // How the product communicates
-    antiPatterns: string;       // What the product should never be
   };
+  // Note: visualMood and antiPatterns were removed in v1.1 — visual identity
+  // (including visual anti-patterns) is captured in docs/design.md via
+  // /plaid design from image references, not in vision.json.
 
   techStack: {
     appType: "web" | "mobile" | "desktop" | "cross-platform";
@@ -117,6 +118,10 @@ When the schema changes (fields added, removed, renamed, or types changed), `CUR
 3. Update the `validate()` function to check any new or changed fields.
 4. Update this schema document and the example below to reflect the new shape.
 
+### Migration history
+
+**1.0 → 1.1** — Removed `feeling.visualMood` and `feeling.antiPatterns`. Visual identity (including visual anti-patterns) is now captured in `docs/design.md` via `/plaid design`, generated from image references rather than text descriptions. The migration deletes both fields if present.
+
 ## Field Rules
 
 - **No empty strings** in required fields. If the founder skipped a question, use the AI-suggested default.
@@ -133,7 +138,7 @@ When the schema changes (fields added, removed, renamed, or types changed), `CUR
   "meta": {
     "createdAt": "2025-03-15T10:30:00Z",
     "updatedAt": "2025-03-15T11:45:00Z",
-    "version": "1.0",
+    "version": "1.1",
     "plaidVersion": "1.0"
   },
   "creator": {
@@ -181,9 +186,7 @@ When the schema changes (fields added, removed, renamed, or types changed), `CUR
   },
   "feeling": {
     "brandPersonality": "The sharp, organized friend who always knows where to find things. Calm confidence, not flashy. Think: a well-organized library run by someone who genuinely loves helping people find answers. Professional but warm.",
-    "visualMood": "Clean and structured with subtle warmth. Think Notion's clarity meets Linear's precision, but with softer edges and a warmer palette. Not sterile — the visual equivalent of a well-lit, organized workspace.",
-    "toneOfVoice": "Clear, helpful, and quietly confident. Speaks in plain language, never jargon. Celebrates the team's research without being cheesy. Example error: 'We couldn't find that insight — try broader search terms or check the filters.' Example success: 'Found 12 insights across 4 studies. The most relevant are highlighted.'",
-    "antiPatterns": "Never feel like enterprise software — no dense tables with tiny text, no overwhelming dashboards, no 'contact sales' gates. Never feel like a toy — no confetti animations, no gamification, no infantilizing copy. Never feel slow or heavy — if it takes more than 2 seconds to find an insight, something is wrong."
+    "toneOfVoice": "Clear, helpful, and quietly confident. Speaks in plain language, never jargon. Celebrates the team's research without being cheesy. Example error: 'We couldn't find that insight — try broader search terms or check the filters.' Example success: 'Found 12 insights across 4 studies. The most relevant are highlighted.'"
   },
   "techStack": {
     "appType": "web",

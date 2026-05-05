@@ -180,7 +180,9 @@ For each AI-assisted question:
 
 -----
 
-## Section 6: The Feeling
+## Section 6: Brand Voice
+
+This section captures the product's verbal identity — personality and tone. Visual identity (colors, typography, spacing, components) belongs in `docs/design.md`, generated separately by `/plaid design` from image references.
 
 ### Q6.1: Brand personality
 
@@ -188,23 +190,11 @@ For each AI-assisted question:
 - **Ask:** “If your product were a person, how would you describe their personality?”
 - **Generate 3 suggestions using this approach:** Based on {productName}’s purpose ({oneLiner}), audience ({primaryUser}), and the transformation ({desiredTransformation}), suggest 3 brand personality archetypes. Each should be 3–4 adjectives with a one-sentence description. Make them genuinely different vibes — e.g. “warm expert”, “sharp minimalist”, “playful rebel.”
 
-### Q6.2: Visual mood
-
-- **AI suggestions:** Yes
-- **Ask:** “What should this feel like visually? Think colors, energy, aesthetic.”
-- **Generate 3 suggestions using this approach:** Based on brand personality ({brandPersonality}) and audience ({primaryUser}), suggest 3 visual mood directions. Each should describe a palette tendency, typography feel, and overall energy. Be evocative — reference real-world aesthetics people can picture (e.g. “Notion-like calm”, “Linear-inspired precision”, “Duolingo playfulness”).
-
-### Q6.3: Tone of voice
+### Q6.2: Tone of voice
 
 - **AI suggestions:** Yes
 - **Ask:** “How should this product talk to its users?”
 - **Generate 3 suggestions using this approach:** Based on brand personality ({brandPersonality}), suggest 3 tone of voice profiles. Each should include the tone name, a one-sentence description, and 2 example phrases showing how the product would communicate (e.g. an error message, a success state, a CTA). Make the examples concrete and noticeably different from each other.
-
-### Q6.4: Anti-patterns
-
-- **AI suggestions:** Yes
-- **Ask:** “What should this product NEVER feel like?”
-- **Generate 3 suggestions using this approach:** Based on brand personality ({brandPersonality}) and visual mood ({visualMood}), suggest 3 anti-pattern sets. Each should be 3–4 things the product should actively avoid — specific enough to be actionable (not “don’t be boring” but “never use corporate stock photography” or “avoid dense paragraph-heavy onboarding flows”).
 
 -----
 

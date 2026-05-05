@@ -2,7 +2,7 @@
   "meta": {
     "createdAt": "",
     "updatedAt": "",
-    "version": "1.0",
+    "version": "1.1",
     "plaidVersion": "1.0"
   },
   "creator": {
@@ -40,9 +40,7 @@
   },
   "feeling": {
     "brandPersonality": "",
-    "visualMood": "",
-    "toneOfVoice": "",
-    "antiPatterns": ""
+    "toneOfVoice": ""
   },
   "techStack": {
     "appType": "web",

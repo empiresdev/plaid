@@ -132,7 +132,6 @@ Use the exact heading structure below. Write in complete prose paragraphs — av
 ### Messaging Framework
 ### Elevator Pitches
 ### Competitive Differentiation Narrative
-### Brand Anti-Patterns
 ```
 
 **Positioning Statement:** Use the format: “For [target user] who [need], [product] is the [category] that [key benefit]. Unlike [alternatives], [product] [key differentiator].”
@@ -147,46 +146,21 @@ Use the exact heading structure below. Write in complete prose paragraphs — av
 
 **Competitive Differentiation Narrative:** Build on the founder’s own words about differentiation. Write a compelling paragraph that a founder could use in a pitch deck or investor conversation. Be specific about what competitors do, what they miss, and why this product’s approach is better.
 
-**Brand Anti-Patterns:** Based on {feeling.antiPatterns}. Expand each into a specific, actionable guideline. Not “don’t be corporate” but “never use words like ‘leverage’, ‘synergy’, or ‘solution’. Never show a stock photo of people in suits.”
-
 -----
 
-### 5. Design Direction
+## Visual Design
+
+Visual design — colors, typography, spacing, components, motion, design tokens — is **not** part of `product-vision.md`. It lives in `docs/design.md`, generated separately by `/plaid design` from image references.
+
+After writing `product-vision.md`, end the document with a short pointer:
 
 ```markdown
-## 5. Design Direction
+## 5. Visual Design
 
-### Design Philosophy
-### Visual Mood
-### Color Palette
-### Typography
-### Spacing & Layout
-### Component Philosophy
-### Iconography & Imagery
-### Accessibility Commitments
-### Motion & Interaction
-### Design Tokens
+Visual design tokens (colors, typography, spacing, components, motion) live in `docs/design.md`. If that file does not yet exist, run `/plaid design` with image references to generate it before building.
 ```
 
-**Design Philosophy:** 3–4 principles that guide every design decision. Specific to this product’s audience and brand. E.g. “Information density over whitespace — our users are power users who want to see everything at once.”
-
-**Visual Mood:** A paragraph describing the overall aesthetic. Reference real products or design movements the audience would recognize. Based on {feeling.visualMood}.
-
-**Color Palette:** Primary, secondary, accent, background, surface, and semantic colors (success, warning, error, info). Each with: hex value, CSS variable name (e.g. `--color-primary`), Tailwind config name, and when to use it. Include light and dark mode considerations.
-
-**Typography:** Specific typeface recommendations (with Google Fonts or similar free alternatives). Define: heading font, body font, mono font. For each: font family, weights to load, size scale (in rem), line heights. Include CSS variable names.
-
-**Spacing & Layout:** Define a spacing scale (e.g. 4px base unit: 4, 8, 12, 16, 24, 32, 48, 64, 96). Max content width. Grid system. Responsive breakpoints. Be precise — “minimum 24px between sections” not “generous spacing.”
-
-**Component Philosophy:** How components should feel and behave. Border radius strategy, shadow usage, border usage, button styles, input styles. Reference the brand personality.
-
-**Iconography & Imagery:** Icon style (outline, filled, duotone), recommended icon library, illustration style if any, photography direction. What to avoid.
-
-**Accessibility Commitments:** Specific WCAG targets. Color contrast ratios. Focus indicators. Screen reader considerations. Minimum touch targets. Not aspirational — concrete commitments.
-
-**Motion & Interaction:** Transition duration defaults, easing curves, what animates and what doesn’t. Hover/focus/active state philosophy. Loading state approach.
-
-**Design Tokens:** A consolidated reference table of all design tokens defined above: colors, spacing, typography, shadows, border-radius, transitions. Each token has: name, CSS variable, Tailwind class, value. This becomes the single source of truth for implementation.
+Do not duplicate or pre-fill design tokens here. The PRD and roadmap will reference `docs/design.md` for implementation values.
 
 -----
 
@@ -232,17 +206,7 @@ The final document should follow this header structure exactly:
 ### Messaging Framework
 ### Elevator Pitches
 ### Competitive Differentiation Narrative
-### Brand Anti-Patterns
 
-## 5. Design Direction
-### Design Philosophy
-### Visual Mood
-### Color Palette
-### Typography
-### Spacing & Layout
-### Component Philosophy
-### Iconography & Imagery
-### Accessibility Commitments
-### Motion & Interaction
-### Design Tokens
+## 5. Visual Design
+(Pointer to docs/design.md — see "Visual Design" section above.)
 ```

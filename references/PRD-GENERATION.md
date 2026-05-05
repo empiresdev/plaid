@@ -25,7 +25,7 @@ Use the exact heading structure specified below.
 - Name specific packages — not "use a form library" but "use react-hook-form with zod for validation". Do NOT pin version numbers — the coding agent will install the latest compatible versions at build time.
 - Write so a coding agent can read ANY section in isolation and start implementing immediately
 - Be specific but not rigid — leave room for implementation judgment on minor UI/UX choices
-- Use the design tokens from `product-vision.md` § Design Direction — reference them by their CSS variable names
+- **Do not duplicate design tokens.** Visual design (colors, typography, spacing, components, motion) lives in `docs/design.md`, generated separately by `/plaid design`. Reference token names from that file rather than redefining them here. If `docs/design.md` does not exist, note that the founder should run `/plaid design` before implementation begins.
 - Data models should be implementation-ready, not conceptual diagrams
 - API specs should include real paths, methods, and request/response shapes
 
@@ -281,6 +281,8 @@ Each requirement must have a **measurable threshold:**
 ## 8. UI/UX Requirements
 ```
 
+Visual styling (colors, typography, spacing, component appearance) is **not** specified here — it lives in `docs/design.md`. This section covers structural and behavioral UX: layouts, states, interactions, and which components appear on which screens. Reference component names from `docs/design.md` rather than re-describing their styling.
+
 For each screen/page:
 
 ```markdown
@@ -299,88 +301,19 @@ Key Interactions:
 - [Interaction 1: trigger → behavior → result]
 - [Interaction 2: trigger → behavior → result]
 
-Components Used: [List of components from design system]
+Components Used: [List of components from docs/design.md, e.g. button-primary, card, input-text]
 ```
 
 Cover: all pages in the MVP, the onboarding flow, settings/account page, and any modal/dialog flows.
 
------
-
-### 9. Design System
-
-```markdown
-## 9. Design System
-
-### Color Tokens
-### Typography Tokens
-### Spacing Tokens
-### Component Specifications
-### Tailwind Configuration
-```
-
-Translate the design tokens from `product-vision.md` § Design Direction into implementation-ready code.
-
-**Color Tokens:** CSS custom properties and Tailwind config:
-
-```css
-:root {
-  --color-primary: #HEXVAL;
-  --color-primary-hover: #HEXVAL;
-  --color-secondary: #HEXVAL;
-  --color-background: #HEXVAL;
-  --color-surface: #HEXVAL;
-  --color-text: #HEXVAL;
-  --color-text-muted: #HEXVAL;
-  --color-border: #HEXVAL;
-  --color-success: #HEXVAL;
-  --color-warning: #HEXVAL;
-  --color-error: #HEXVAL;
-}
-```
-
-**Typography Tokens:** Font imports and CSS:
-
-```css
-/* Google Fonts import URL */
-@import url('https://fonts.googleapis.com/css2?family=...');
-
-:root {
-  --font-heading: 'FontName', sans-serif;
-  --font-body: 'FontName', sans-serif;
-  --font-mono: 'FontName', monospace;
-  --text-xs: 0.75rem;    /* 12px */
-  --text-sm: 0.875rem;   /* 14px */
-  --text-base: 1rem;     /* 16px */
-  --text-lg: 1.125rem;   /* 18px */
-  --text-xl: 1.25rem;    /* 20px */
-  --text-2xl: 1.5rem;    /* 24px */
-  --text-3xl: 1.875rem;  /* 30px */
-}
-```
-
-**Spacing Tokens:** Based on the spacing scale from design direction.
-
-**Component Specifications:** For each core UI component (Button, Input, Card, Modal, etc.): variants, sizes, states, and specific styling rules. Include border-radius, shadow, padding values.
-
-**Tailwind Configuration:** A complete `tailwind.config.ts` extend block that implements all design tokens:
-
-```typescript
-theme: {
-  extend: {
-    colors: { ... },
-    fontFamily: { ... },
-    spacing: { ... },
-    borderRadius: { ... },
-  }
-}
-```
+If `docs/design.md` does not yet exist, add a note at the top of this section: "Visual tokens not yet defined. Run `/plaid design` before implementation begins."
 
 -----
 
-### 10. Auth Implementation
+### 9. Auth Implementation
 
 ```markdown
-## 10. Auth Implementation
+## 9. Auth Implementation
 
 ### Auth Flow
 ### Provider Configuration
@@ -402,10 +335,10 @@ Skip this section entirely if the auth choice is “None.” Instead, add a brie
 
 -----
 
-### 11. Payment Integration
+### 10. Payment Integration
 
 ```markdown
-## 11. Payment Integration
+## 10. Payment Integration
 
 ### Payment Flow
 ### Provider Setup
@@ -429,10 +362,10 @@ Skip this section entirely if the revenue model is “Free” or the payment cho
 
 -----
 
-### 12. Edge Cases & Error Handling
+### 11. Edge Cases & Error Handling
 
 ```markdown
-## 12. Edge Cases & Error Handling
+## 11. Edge Cases & Error Handling
 ```
 
 For each major feature area, list:
@@ -448,10 +381,10 @@ Cover: network failures, auth expiry mid-session, invalid data, concurrent edits
 
 -----
 
-### 13. Dependencies & Integrations
+### 12. Dependencies & Integrations
 
 ```markdown
-## 13. Dependencies & Integrations
+## 12. Dependencies & Integrations
 
 ### Core Dependencies
 ### Development Dependencies
@@ -483,20 +416,20 @@ Cover: network failures, auth expiry mid-session, invalid data, concurrent edits
 
 -----
 
-### 14. Out of Scope
+### 13. Out of Scope
 
 ```markdown
-## 14. Out of Scope
+## 13. Out of Scope
 ```
 
 Explicit list from product-vision.md § Product Strategy. For each item: what it is, why it’s excluded, and when to reconsider.
 
 -----
 
-### 15. Open Questions
+### 14. Open Questions
 
 ```markdown
-## 15. Open Questions
+## 14. Open Questions
 ```
 
 Unresolved technical or product decisions. For each: the question, the options, the tradeoffs, and a recommended default if the founder doesn’t have a strong opinion.
@@ -516,11 +449,12 @@ Unresolved technical or product decisions. For each: the question, the options, 
 ## 6. Functional Requirements
 ## 7. Non-Functional Requirements
 ## 8. UI/UX Requirements
-## 9. Design System
-## 10. Auth Implementation
-## 11. Payment Integration
-## 12. Edge Cases & Error Handling
-## 13. Dependencies & Integrations
-## 14. Out of Scope
-## 15. Open Questions
+## 9. Auth Implementation
+## 10. Payment Integration
+## 11. Edge Cases & Error Handling
+## 12. Dependencies & Integrations
+## 13. Out of Scope
+## 14. Open Questions
 ```
+
+Visual design tokens are not a section in the PRD. They live in `docs/design.md`, generated by `/plaid design`. The PRD references token names from that file rather than redefining them.
