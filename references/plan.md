@@ -16,6 +16,8 @@ Generate documents from `vision.json`. See "Document Generation" below.
 
 If the user just says "PLAID" or "help me plan something" or "I want to build something", use the mode-selection logic above to decide what to do — don't assume a fresh intake. Only start the vision intake if `vision.json` does not exist.
 
+**Validate nudge:** If `docs/product-idea.md` exists but `docs/validation-report.md` does not, gently mention Validate as a recommended pre-step before the founder commits to the full vision intake — but do not block. Phrase it as: "Before we plan, you can run `/plaid validate` to pressure-test the idea against fatal flaws and competition. It usually surfaces a sharper target user and a smaller MVP. Want to validate first, or proceed straight to the intake?" Honor the founder's choice without arguing.
+
 -----
 
 ## Vision Intake

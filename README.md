@@ -8,15 +8,16 @@
 ```
 # PLAID — Product Led AI Development
 
-An agent skill that guides founders from idea to launched product through structured conversations and AI-powered document generation. PLAID combines the thinking of a product strategist, brand strategist, UX researcher, design director, technical architect, and go-to-market specialist into a single skill with five capabilities.
+An agent skill that guides founders from idea to launched product through structured conversations and AI-powered document generation. PLAID combines the thinking of a product strategist, brand strategist, UX researcher, design director, technical architect, and go-to-market specialist into a single skill with six capabilities.
 
 ## Capabilities
 
-PLAID is a single skill with five capabilities, each handling a distinct phase of the product development pipeline:
+PLAID is a single skill with six capabilities, each handling a distinct phase of the product development pipeline:
 
 | Capability | Trigger | What It Does | Output |
 |---|---|---|---|
-| **Idea** | "plaid idea", "help me find an idea", "what should I build" | Guided discovery of a product idea from business processes or personal expertise | `product-idea.md` |
+| **Idea** | "plaid idea", "help me find an idea", "what should I build" | Guided discovery of a product idea from business processes or personal expertise | `docs/product-idea.md` |
+| **Validate** | "plaid validate", "validate my idea", "pressure-test", "is this idea good" | Brutally pressure-tests the chosen idea — fatal flaws, problem reality, competition, first 10 customers, 2-week MVP test, strong/weak/pivot verdict. Sharpens `docs/product-idea.md` automatically. | `docs/validation-report.md`, sharpened `docs/product-idea.md` |
 | **Plan** | "PLAID", "plan a product", "define my vision", "generate a PRD" | Vision intake conversation + document generation | `vision.json`, `product-vision.md`, `prd.md`, `product-roadmap.md` |
 | **Design** | "plaid design", "design from image", "create design.md", "image to design system" | Translates image references (screenshots, mockups, Figma URLs) into a [Google design.md](https://github.com/google-labs-code/design.md) token spec + prose rationale | `docs/design.md` |
 | **Launch** | "plaid launch", "go-to-market", "launch plan", "GTM strategy" | Go-to-market plan generation | `gtm.md` |
@@ -34,11 +35,28 @@ Start here if you don't yet have a concrete product concept. PLAID Idea walks yo
 4. **Scorecard** — Each candidate scored on unfair advantage, pain level, audience reachability, MVP feasibility, and differentiation
 5. **Pick one** — Opinionated recommendation you can accept, swap, or blend
 6. **Sharpen** — Target user, specific problem, smallest testable version, why you, and top risky assumptions
-7. **Output** — `product-idea.md` in the project root
+7. **Output** — `docs/product-idea.md`
 
-`product-idea.md` feeds directly into Plan — most of the Plan intake's first three sections are already answered.
+`docs/product-idea.md` feeds directly into Validate (recommended next step) and Plan — most of the Plan intake's first three sections are already answered.
 
-### 2. Plan
+### 2. Validate
+
+Pressure-test the chosen idea before investing in Plan, Build, or Launch. Validate adapts the [Startup Pressure Test](https://github.com/BuildGreatProducts/product-masters_validate) framework into PLAID's flow.
+
+1. **Read or gather** — If `docs/product-idea.md` exists, Validate reads it and confirms the direction. If not, it asks for the idea, target customer, and what you want them to do or pay for.
+2. **Find the core assumption** — One sentence: the single thing that must be true for the business to work.
+3. **Surface fatal flaws** — Up to 3, ranked by severity, each with a fast behavioral test.
+4. **Test problem reality** — Vitamin or painkiller verdict, in the user's own language.
+5. **Map real competition** — Including current behavior (always a competitor) and the real enemy you have to displace.
+6. **Plan the first 10 customers** — Manual outreach, no ads, no automation. Where they are, how to reach them, what success looks like.
+7. **Define a 2-week MVP test** — The smallest thing that tests the core assumption with real users.
+8. **Score and verdict** — A 6-axis scorecard (pain intensity, buyer clarity, urgency, differentiation, speed to validate, founder advantage) and a direct strong / weak / pivot verdict.
+9. **Sharpen the idea** — Validate applies sharpened edits automatically to `docs/product-idea.md` (target user, problem statement, MVP shape, risky assumptions) and tells you what changed. The `Candidates considered` section is preserved.
+10. **Output** — `docs/validation-report.md` (the full diagnosis, preserved for the record) and updated `docs/product-idea.md`.
+
+The validation scorecard sits **alongside** the Idea capability's candidate scorecard. Idea ranks 3–5 candidate directions; Validate stress-tests the chosen one. Both are kept.
+
+### 3. Plan
 
 Start here. PLAID Plan guides you through a structured vision intake conversation, then generates three product documents.
 
@@ -63,7 +81,7 @@ For each question, PLAID generates 3 tailored suggestions based on your previous
 | `prd.md` | Technical specification — architecture, data models, API specs, user stories, requirements, design system, auth/payments setup | Coding agents, developers |
 | `product-roadmap.md` | Phased build plan with checkbox-tracked tasks for sequential execution | Coding agents, project managers |
 
-### 3. Design
+### 4. Design
 
 Translates an image — or a set of image references — into a structured `docs/design.md` file following [Google's open design.md format](https://github.com/google-labs-code/design.md). Standalone — does not require any other PLAID document, but pairs naturally with `product-vision.md` and `prd.md`.
 
@@ -78,7 +96,7 @@ Translates an image — or a set of image references — into a structured `docs
 |---|---|---|
 | `docs/design.md` | Design system spec — YAML tokens (colors, typography, spacing, rounded, components) with prose rationale for each section | Coding agents, designers |
 
-### 4. Launch
+### 5. Launch
 
 Generates your go-to-market playbook. Requires `vision.json` and `docs/product-vision.md` from the Plan capability.
 
@@ -86,7 +104,7 @@ Generates your go-to-market playbook. Requires `vision.json` and `docs/product-v
 |---|---|---|
 | `gtm.md` | Go-to-market plan — launch strategy, pre-launch playbook, channel strategy, growth tactics, metrics | Founders, marketing |
 
-### 5. Build
+### 6. Build
 
 Executes the roadmap phase by phase. Requires `docs/product-roadmap.md` and `docs/prd.md` from the Plan capability.
 
@@ -130,6 +148,8 @@ Start a new conversation with your AI coding agent and trigger PLAID:
 
 **Idea:** "plaid idea", "Help me find an idea", "What should I build", "Product idea from my business"
 
+**Validate:** "plaid validate", "Validate my idea", "Pressure-test", "Is this idea good", "Find fatal flaws"
+
 **Plan:** "PLAID", "Help me build something", "Plan a product", "Define my vision", "Generate a PRD", "Spec out my idea"
 
 **Design:** "plaid design", "Design from image", "Create design.md", "Image to design system", "Extract design tokens"
@@ -142,9 +162,11 @@ PLAID automatically routes to the right capability based on your request. No dep
 
 ## What to Expect After Setup
 
-**Optional first session — Idea Discovery.** If you don't yet have a concrete product concept, start with `plaid idea`. PLAID walks you through a stepped conversation that mines an idea from your business or expertise, ranks candidates on a scorecard, and writes `product-idea.md` in the project root. This becomes input to the Plan intake.
+**Optional first session — Idea Discovery.** If you don't yet have a concrete product concept, start with `plaid idea`. PLAID walks you through a stepped conversation that mines an idea from your business or expertise, ranks candidates on a scorecard, and writes `docs/product-idea.md`. This becomes input to Validate and Plan.
 
-**First (or second) session — Vision Intake.** PLAID opens with "What do you want to build?" and adapts based on how concrete your idea is. If you have a clear concept (or a `product-idea.md`), it jumps into structured questions. If you're still exploring, it helps you narrow down before moving forward. At the end, you'll have a validated `vision.json` in your project root.
+**Optional second session — Validation.** Once you have an idea, run `plaid validate` to pressure-test it. PLAID surfaces fatal flaws, tests whether the problem is real, maps competition (including current behavior), plans a 2-week MVP test, and returns a strong/weak/pivot verdict. It writes `docs/validation-report.md` and sharpens `docs/product-idea.md` automatically based on what it found.
+
+**First (or third) session — Vision Intake.** PLAID opens with "What do you want to build?" and adapts based on how concrete your idea is. If you have a clear concept (or a `docs/product-idea.md`), it jumps into structured questions. If you're still exploring, it helps you narrow down before moving forward. At the end, you'll have a validated `vision.json` in your project root.
 
 **Second session — Document Generation.** When PLAID detects a `vision.json` but missing docs, it generates the three product documents: `product-vision.md`, `prd.md`, and `product-roadmap.md`.
 
@@ -170,7 +192,8 @@ You can update your answers after the intake is complete:
 plaid/
 ├── SKILL.md                    # Router — routes to capability files
 ├── references/                 # Capability files + detailed guides
-│   ├── idea.md                 # Idea discovery — produces product-idea.md
+│   ├── idea.md                 # Idea discovery — produces docs/product-idea.md
+│   ├── validate.md             # Idea pressure-test — produces docs/validation-report.md
 │   ├── plan.md                 # Vision intake + 3-doc generation
 │   ├── design.md               # Image-to-design.md translation
 │   ├── launch.md               # Go-to-market plan generation
