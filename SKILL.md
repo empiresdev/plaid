@@ -2,11 +2,12 @@
 name: plaid
 description: |
   Product Led AI Development — guides founders from idea to launched product.
-  Six capabilities: Idea (discover a product idea), Validate (pressure-test
+  Seven capabilities: Idea (discover a product idea), Validate (pressure-test
   the idea against fatal flaws, problem reality, competition, and 2-week MVP
   feasibility), Plan (vision intake + document generation), Design (translate
   image references into a design.md spec), Launch (go-to-market strategy),
-  and Build (roadmap execution). Use when someone says "PLAID", "plaid idea",
+  Build (roadmap execution), and Reverse Engineer (document an existing
+  codebase as PLAID-compatible product docs). Use when someone says "PLAID", "plaid idea",
   "help me find an idea", "product idea", "idea from my business",
   "idea from my expertise", "plaid validate", "validate my idea",
   "pressure-test", "is this idea good", "find fatal flaws",
@@ -15,7 +16,9 @@ description: |
   "translate image to design", "create design.md", "extract design tokens",
   "plaid launch", "go-to-market", "launch plan", "GTM strategy",
   "launch playbook", "plaid build", "build the app", "start building",
-  or "execute the roadmap".
+  "execute the roadmap", "plaid reverse", "reverse engineer this project",
+  "create docs from an existing codebase", "generate a PRD from this repo",
+  or "document this existing app".
 license: MIT
 metadata:
   author: plaid-dev
@@ -25,7 +28,7 @@ metadata:
 
 ## Overview
 
-PLAID helps founders go from idea to launched product through structured conversations and AI-powered document generation. The full pipeline is: **Idea → Validate → Plan → Launch → Build.** Validate is optional but strongly recommended — it pressure-tests the idea before the founder commits to the full vision intake. Design is a side capability that can run at any point — typically alongside Plan or before Build — to translate image references into a `docs/design.md` token spec.
+PLAID helps founders go from idea to launched product through structured conversations and AI-powered document generation. The forward pipeline is: **Idea → Validate → Plan → Launch → Build.** Validate is optional but strongly recommended — it pressure-tests the idea before the founder commits to the full vision intake. Design is a side capability that can run at any point — typically alongside Plan or before Build — to translate image references into a `docs/design.md` token spec. Reverse Engineer is the backwards pipeline: it starts from an existing codebase and reconstructs PLAID-compatible product docs from code evidence.
 
 ## Shared Context
 
@@ -47,6 +50,7 @@ Determine which capability the user needs based on their request, then read the 
 | "plaid design", "design from image", "translate image to design", "create design.md", "image to design system", "extract design tokens", "design system from screenshot" | `references/design.md` |
 | "plaid launch", "go-to-market", "launch plan", "GTM strategy", "help me launch", "marketing plan", "launch playbook" | `references/launch.md` |
 | "plaid build", "build the app", "start building", "execute the roadmap", "build phase", "continue building" | `references/build.md` |
+| "plaid reverse", "reverse engineer this project", "document this existing app", "create docs from an existing codebase", "generate a PRD from this repo", "as-built PRD", "reconstruct product docs" | `references/reverse-engineering.md` |
 
 ### Auto-detection
 
@@ -60,8 +64,12 @@ If the request is ambiguous, check the project state to determine the right capa
 - All docs exist but no code built yet → suggest Launch or Build
 - `docs/product-roadmap.md` has unchecked tasks → route to Build
 - User shares an image, screenshot, or Figma URL with no other clear intent → offer Design
+- User asks for PRD/product docs for an existing repo, or asks PLAID to inspect code before writing docs → route to Reverse Engineer
+- Current directory contains a real app codebase (package metadata, app routes/screens, source directories) but no `vision.json` or PLAID docs, and the user asks for docs rather than a new build → route to Reverse Engineer
 
 Design is image-triggered and orthogonal to the main pipeline — it does not require any other PLAID document. Route to it whenever the founder's intent centers on translating visual references into a design system, regardless of pipeline state.
+
+Reverse Engineer is codebase-triggered and evidence-first. Route to it when the existing implementation is the source of truth. Do not use forward Plan intake to invent a product vision for an existing app unless the user explicitly asks to ignore the codebase.
 
 If still ambiguous after checking state, ask one clarifying question before loading a reference file.
 
@@ -77,3 +85,4 @@ When a capability completes, suggest the natural next step. If the user progress
 - After Design completes → if `docs/prd.md` does not yet exist, suggest Plan (`/plaid plan`); if it does, suggest Build (`/plaid build`)
 - After Launch completes → suggest building (`/plaid build`)
 - After Build completes → suggest launching (`/plaid launch`) if not done already
+- After Reverse Engineer completes → suggest reviewing `docs/codebase-audit.md` and resolving `Unknown` items before using `/plaid build` for future roadmap work

@@ -8,11 +8,11 @@
 ```
 # PLAID — Product Led AI Development
 
-An agent skill that guides founders from idea to launched product through structured conversations and AI-powered document generation. PLAID combines the thinking of a product strategist, brand strategist, UX researcher, design director, technical architect, and go-to-market specialist into a single skill with six capabilities.
+An agent skill that guides founders from idea to launched product through structured conversations and AI-powered document generation. PLAID combines the thinking of a product strategist, brand strategist, UX researcher, design director, technical architect, and go-to-market specialist into a single skill with seven capabilities.
 
 ## Capabilities
 
-PLAID is a single skill with six capabilities, each handling a distinct phase of the product development pipeline:
+PLAID is a single skill with seven capabilities, each handling a distinct phase of the product development pipeline:
 
 | Capability | Trigger | What It Does | Output |
 |---|---|---|---|
@@ -22,6 +22,7 @@ PLAID is a single skill with six capabilities, each handling a distinct phase of
 | **Design** | "plaid design", "design from image", "create design.md", "image to design system" | Translates image references (screenshots, mockups, Figma URLs) into a [Google design.md](https://github.com/google-labs-code/design.md) token spec + prose rationale | `docs/design.md` |
 | **Launch** | "plaid launch", "go-to-market", "launch plan", "GTM strategy" | Go-to-market plan generation | `gtm.md` |
 | **Build** | "plaid build", "build the app", "start building" | Executes roadmap phase by phase, reviews code, commits to git | Working code, git commits per phase |
+| **Reverse Engineer** | "plaid reverse", "reverse engineer this project", "generate a PRD from this repo", "document this existing app" | Starts from an existing codebase and reconstructs PLAID-compatible product docs from code evidence | `docs/codebase-audit.md`, `vision.json`, `docs/product-vision.md`, `docs/prd.md`, `docs/product-roadmap.md` |
 
 ## How It Works
 
@@ -118,6 +119,20 @@ Executes the roadmap phase by phase. Requires `docs/product-roadmap.md` and `doc
 
 Each phase produces a working, demoable product.
 
+### 7. Reverse Engineer
+
+Starts from an existing codebase instead of a new idea. Reverse Engineer inspects the repository, treats the implementation as the source of truth, and generates PLAID-compatible documentation for the product that already exists.
+
+1. **Scope** — Determines the target repo, output docs, language, and whether the docs should cover current state only or current state plus future recommendations
+2. **Codebase inventory** — Reads README files, package metadata, routes, screens, APIs, data models, auth, payments, tests, styles, deployment config, and existing docs
+3. **Evidence map** — Separates findings into Observed, Inferred, Unknown, and Recommended
+4. **Audit output** — Writes `docs/codebase-audit.md`, the evidence ledger humans should review before trusting the generated PRD
+5. **Vision reconstruction** — Creates a valid `vision.json` using the existing product as the source of truth
+6. **Document generation** — Produces `docs/product-vision.md`, an as-built `docs/prd.md`, and a future-work `docs/product-roadmap.md`
+7. **Optional docs** — Generates `docs/design.md` when the codebase has enough UI/design evidence, and `docs/gtm.md` when launch strategy is requested
+
+Reverse Engineer is evidence-first. It should not invent features that are not present, and it should not create roadmap tasks to rebuild features that already exist.
+
 ## Adding PLAID as a Skill
 
 PLAID is an AI agent skill. The quickest way to install it:
@@ -159,6 +174,8 @@ Start a new conversation with your AI coding agent and trigger PLAID:
 
 **Build:** "plaid build", "Start building", "Execute the roadmap"
 
+**Reverse Engineer:** "plaid reverse", "Reverse engineer this project", "Generate a PRD from this repo", "Document this existing app", "Create docs from an existing codebase"
+
 PLAID automatically routes to the right capability based on your request. No dependencies need to be installed — the skill is entirely documentation-driven.
 
 ## What to Expect After Setup
@@ -174,6 +191,8 @@ PLAID automatically routes to the right capability based on your request. No dep
 **Go-to-market.** Generate your launch playbook whenever you're ready. This can happen before or after building.
 
 **Building.** Execute the roadmap. PLAID Build reads the roadmap, builds each phase, reviews the code, and commits. You get a working product at the end of each phase.
+
+**Reverse engineering an existing project.** Run `plaid reverse` from inside an existing codebase, or give PLAID the path to a target repo. It inspects the implementation and writes an evidence audit, `vision.json`, an as-built PRD, product vision, and a future-work roadmap. Review `docs/codebase-audit.md` first — anything marked Unknown should be confirmed before implementation work.
 
 **Resuming at any point.** Each skill detects your current state automatically:
 - Partial intake? Continues from the next unanswered question
@@ -199,6 +218,7 @@ plaid/
 │   ├── design.md               # Image-to-design.md translation
 │   ├── launch.md               # Go-to-market plan generation
 │   ├── build.md                # Roadmap execution + git commits
+│   ├── reverse-engineering.md  # Existing codebase → PLAID docs
 │   ├── INTAKE-GUIDE.md         # Full question bank with suggestion prompts
 │   ├── VISION-SCHEMA.md        # TypeScript schema, field rules, examples
 │   ├── VISION-GENERATION.md    # How product-vision.md is generated
